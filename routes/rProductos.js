@@ -17,13 +17,11 @@ export default (io) => {
 
     router.get('/:id?', function(req, res) {
         let producto = new Producto().index(req.params.id);
-        console.log(req.id);
         res.send(producto);
     });
 
     router.post('/agregar', function(req, res) {
         new Producto().create({nombre: req.body.nombre, precio: req.body.precio, img: req.body.img, descripcion: req.body.descripcion, stock: req.body.stock, codigo: req.body.codigo});
-        console.log(req.body.nombre);
         res.send('success');
     });
 

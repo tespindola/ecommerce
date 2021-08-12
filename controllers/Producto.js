@@ -31,7 +31,6 @@ export default class Producto{
             timestamp: moment().format('DD/MM/YYYY HH:mm:ss'),
             id: productos.length + 1,
         });
-        console.log(productos);
         fs.writeFileSync('./data/productos.json', JSON.stringify(productos));
 
         return productos[productos.length-1];
