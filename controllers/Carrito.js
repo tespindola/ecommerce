@@ -16,7 +16,7 @@ export default class Carrito{
         if(!id){
             return carrito;
         }else{
-            return carrito?.productos.find(f => f.id) || {error: 'producto no encontrado'};
+            return carrito.productos.find(f => f.id) || {error: 'producto no encontrado'};
         }
     }
 
