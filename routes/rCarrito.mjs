@@ -1,7 +1,7 @@
 import express from 'express';
 
 // Controladores
-import Carrito from '../controllers/Carrito.js';
+import Carrito from '../controllers/Carrito.mjs';
 
 export default (io) => {
     const router = express.Router();

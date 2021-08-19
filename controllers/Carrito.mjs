@@ -1,6 +1,6 @@
 import fs from 'fs';
 import moment from 'moment';
-import Producto from './Producto.js';
+import Producto from './Producto.mjs';
 
 export default class Carrito{
     constructor() {
