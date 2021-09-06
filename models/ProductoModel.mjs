@@ -1,7 +1,13 @@
-import Model from './Model.mjs';
+import mongoose from "mongoose";
+const {Schema, model} = mongoose;
 
-export default class ProductoModel extends Model{
-    constructor() {
-        super('productos', ['code', 'name', 'description', 'img', 'stock', 'price', 'created_at', 'updated_at', 'deleted_at']);
-    }
-}
+const productoSchema = new Schema({
+    code: String,
+    name: String,
+    description: String,
+    img: String,
+    stock: Number,
+    price: Number,
+});
+
+export default model('Producto', productoSchema);
