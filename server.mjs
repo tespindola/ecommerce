@@ -19,17 +19,13 @@ const server = http.createServer(app);
 
 const PUERTO = process.env.PORT || 8080;
 
-/* getConnection().then((msj) => {
+getConnection().then((msj) => {
     console.log(msj);
     server.listen(PUERTO, () => {
         console.log(`Servidor iniciado en el puerto: ${server.address().port}`);
     });
     server.on('error', error => console.log(`Error al iniciar el servidor: ${error}`));
-}).catch((e) => console.log(e)); */
-server.listen(PUERTO, () => {
-    console.log(`Servidor iniciado en el puerto: ${server.address().port}`);
-});
-server.on('error', error => console.log(`Error al iniciar el servidor: ${error}`));
+}).catch((e) => console.log(e));
 
 app.use('/api/productos', rProductos());
 app.use('/api/carrito', rCarrito());

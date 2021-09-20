@@ -11,13 +11,13 @@ export default (io) => {
         res.send(carrito);
     });
 
-    router.post('/agregar/:id', function(req, res) {
-        let add = new Carrito().addProduct(req.params.id);
+    router.post('/agregar/:producto_id/:carrito_id?', async function(req, res) {
+        let add = await new Carrito().addProduct(req.params.producto_id, req.params.carrito_id);
         res.send(add);
     });
 
-    router.delete('/borrar/:id', function(req, res) {
-        res.send(new Carrito().removeProduct(req.params.id));
+    router.delete('/borrar/:producto_id/:carrito_id', async function(req, res) {
+        res.send(await new Carrito().removeProduct(req.params.producto_id, req.params.carrito_id));
     });
 
     return router;

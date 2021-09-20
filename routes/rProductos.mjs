@@ -16,7 +16,7 @@ export default (io) => {
     });
 
     router.get('/:id?', async function(req, res) {
-        let producto = await new Producto().index(req.params.id);
+        let producto = await new Producto().index({id: req.params.id, nombre: req.query.nombre, code: req.query.code, fromPrice: req.query.fromPrice, toPrice: req.query.toPrice, fromStock: req.query.fromStock, toStock: req.query.toStock});
         res.send(producto);
     });
 

@@ -5,17 +5,44 @@ import ProductoModelFirebase from '../models/ProductoModelFirebase.mjs';
 
 export default class Producto{
 
-    async index(id){
+    async index({id, nombre, code, fromPrice, toPrice, fromStock, toStock}){
         if(!id){
-            /* let productos = await ProductoModel.find();
-            return productos; */
-            let productos = await ProductoModelFirebase.get();
-            return productos.docs.map(d => ({id: d.id, ...d.data()}));
+            let filter = {};
+            if(nombre){
+                filter['name'] = nombre;
+            }
+            if(code){
+                filter['code'] = code;
+            }
+            if(fromPrice){
+                filter['price'] = {$gte: fromPrice};
+            }
+            if(toPrice){
+                if(!filter['price']){
+                    filter['price'] = {$lte: toPrice};
+                }else{
+                    filter['price']['$lte'] = toPrice;
+                }
+            }
+            if(fromStock){
+                filter['stock'] = {$gte: fromStock};
+            }
+            if(toStock){
+                if(!filter['stock']){
+                    filter['stock'] = {$lte: toStock};
+                }else{
+                    filter['stock']['$lte'] = toStock;
+                }
+            }
+            let productos = await ProductoModel.find(filter);
+            return productos;
+            /* let productos = await ProductoModelFirebase.get();
+            return productos.docs.map(d => ({id: d.id, ...d.data()})); */
         }else{
-            /* let producto = await ProductoModel.findById(id);
-            return producto; */
-            let producto = await ProductoModelFirebase.doc(`${id}`).get();
-            return producto.data();
+            let producto = await ProductoModel.findById(id);
+            return producto;
+            /* let producto = await ProductoModelFirebase.doc(`${id}`).get();
+            return producto.data(); */
         }
     }
 
