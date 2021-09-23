@@ -2,6 +2,7 @@ import moment from 'moment';
 import ProductoModel from '../models/ProductoModel.mjs';
 import { nanoid } from 'nanoid';
 import ProductoModelFirebase from '../models/ProductoModelFirebase.mjs';
+import faker from 'faker';
 
 export default class Producto{
 
@@ -39,8 +40,12 @@ export default class Producto{
             /* let productos = await ProductoModelFirebase.get();
             return productos.docs.map(d => ({id: d.id, ...d.data()})); */
         }else{
-            let producto = await ProductoModel.findById(id);
-            return producto;
+            try {                
+                let producto = await ProductoModel.findById(id);
+                return producto;
+            } catch (error) {
+                return {msg: 'No se encontro el producto'}
+            }
             /* let producto = await ProductoModelFirebase.doc(`${id}`).get();
             return producto.data(); */
         }
@@ -98,6 +103,26 @@ export default class Producto{
         await ProductoModelFirebase.doc(`${id}`).delete();
 
         return {msg: 'Producto eliminado'};
+    }
+
+    test({cant_productos}){
+        faker.locale = 'es_MX'
+        if(!cant_productos){
+            cant_productos = 10;
+        }
+        let productos = [];
+        for (let i = 1; i <= cant_productos; i++) {
+            productos.push({
+                name: faker.commerce.product(),
+                price: faker.commerce.price(),
+                img: faker.random.image(),
+                description: faker.commerce.productDescription(),
+                stock: faker.datatype.number(),
+                code: faker.datatype.uuid(),
+            });
+        }
+
+        return productos;
     }
     
 

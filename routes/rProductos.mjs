@@ -14,11 +14,17 @@ export default (io) => {
         }
         next();
     });
-
+    
+    router.get('/vistaTest/:cant_productos?', async function(req, res) {
+        let producto = await new Producto().test({cant_productos: req.params.cant_productos});
+        res.send(producto);
+    });
+    
     router.get('/:id?', async function(req, res) {
         let producto = await new Producto().index({id: req.params.id, nombre: req.query.nombre, code: req.query.code, fromPrice: req.query.fromPrice, toPrice: req.query.toPrice, fromStock: req.query.fromStock, toStock: req.query.toStock});
         res.send(producto);
     });
+
 
     router.post('/agregar', async function(req, res) {
         let producto = await new Producto().create({name: req.body.name, price: req.body.price, img: req.body.img, description: req.body.description, stock: req.body.stock, code: req.body.code});
