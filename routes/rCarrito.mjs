@@ -6,8 +6,8 @@ import Carrito from '../controllers/Carrito.mjs';
 export default (io) => {
     const router = express.Router();
     
-    router.get('/:id?', function(req, res) {
-        let carrito = new Carrito().index(req.params.id);
+    router.get('/:id?', async function(req, res) {
+        let carrito = await new Carrito().index(req.params.id);
         res.send(carrito);
     });
 
